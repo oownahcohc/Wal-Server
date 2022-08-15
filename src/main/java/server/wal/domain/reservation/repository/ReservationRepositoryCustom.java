@@ -10,6 +10,7 @@ public interface ReservationRepositoryCustom {
     boolean existsByDate(LocalDate requestDate, Long userId);
     boolean existsByReservationId(Long reservationId);
     boolean existsByUserId(Long userId);
+    Reservation findTodayReservationByUserId(Long userId);
     Reservation findByReservationId(Long reservationId);
     List<Reservation> findByUserId(Long userId);
     List<Reservation> findIncompleteReservationByUserId(Long userId);

@@ -47,6 +47,19 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
     }
 
     @Override
+    public Reservation findTodayReservationByUserId(Long userId) {
+        return query
+                .selectFrom(reservation)
+                .where(
+                        reservation.userId.eq(userId),
+                        reservation.sendDueDate.between(
+                                TimeUtils.NOW.atStartOfDay(),
+                                TimeUtils.NOW.atStartOfDay().plusDays(1)
+                        )
+                ).fetchOne();
+    }
+
+    @Override
     public Reservation findByReservationId(Long reservationId) {
         return query
                 .selectFrom(reservation)
