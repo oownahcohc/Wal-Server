@@ -52,8 +52,10 @@ public enum ResponseResult {
     // 404 NOT_FOUND
     NOT_FOUND_EXCEPTION(NOT_FOUND, "존재하지 않습니다"),
     NOT_FOUND_USER_EXCEPTION(NOT_FOUND, "탈퇴하거나 존재하지 않는 유저입니다"),
+    NOT_FOUND_ONBOARDING_EXCEPTION(NOT_FOUND, "탈퇴하거나 존재하지 않는 유저입니다"),
     NOT_FOUND_RESERVATION_EXCEPTION(NOT_FOUND, "삭제되었거나 존재하지 않는 예약 왈소리 입니다"),
     NOT_FOUND_RESERVATION_AFTER_NOW_EXCEPTION(NOT_FOUND, "오늘 이후 예약된 왈소리가 존재하지 않습니다"),
+    NOT_FOUND_TODAY_RESERVATION_EXCEPTION(NOT_FOUND, "오늘 이후 예약된 왈소리가 존재하지 않습니다"),
 
     // 405 Method Not Allowed
     METHOD_NOT_ALLOWED_EXCEPTION(METHOD_NOT_ALLOWED, "지원하지 않는 메소드 입니다"),
