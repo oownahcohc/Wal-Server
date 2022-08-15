@@ -32,7 +32,8 @@ public class ReservationService {
                     requestDto.getContents(),
                     WalCategoryType.RESERVATION,
                     WalTimeType.RESERVATION,
-                    WalStatus.RESERVATION));
+                    WalStatus.RESERVATION
+            ));
         }
         // TODO 메세지 큐 작업
         return ReservationIdResponse.from(reservation.getId());
