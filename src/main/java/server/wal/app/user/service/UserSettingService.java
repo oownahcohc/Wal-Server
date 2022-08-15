@@ -51,7 +51,7 @@ public class UserSettingService {
      * @param onboarding
      * @param userId
      */
-    private void setTodayWals(Onboarding onboarding, Long userId) {
+    public void setTodayWals(Onboarding onboarding, Long userId) {
         for (WalTimeType timeType : onboarding.getTimeTypes()) {
             List<NextWal> nextWals = nextWalRepository.findByUserId(userId);
             int random = (int) Math.floor(Math.random() * nextWals.size());
