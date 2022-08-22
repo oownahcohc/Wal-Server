@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationRepositoryCustom {
-
     boolean existsByDate(LocalDate requestDate, Long userId);
     boolean existsByReservationId(Long reservationId);
     boolean existsByUserId(Long userId);
@@ -16,5 +15,4 @@ public interface ReservationRepositoryCustom {
     List<Reservation> findIncompleteReservationByUserId(Long userId);
     List<Reservation> findCompleteReservationByUserId(Long userId);
     List<Reservation> findReservationAfterNow(Long userId);
-
 }

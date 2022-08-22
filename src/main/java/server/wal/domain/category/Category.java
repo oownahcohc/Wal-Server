@@ -21,5 +21,6 @@ public class Category {
     private WalCategoryType categoryType;
 
     @OneToMany(mappedBy = "category")
-    List<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
+
 }
