@@ -10,7 +10,7 @@ import server.wal.app.auth.dto.request.TokenRequest;
 import server.wal.app.auth.dto.response.LoginResponse;
 import server.wal.app.auth.dto.response.TokenResponse;
 import server.wal.app.auth.service.AuthService;
-import server.wal.app.auth.service.AuthServiceProvider;
+import server.wal.app.auth.provider.AuthServiceProvider;
 import server.wal.app.auth.service.CreateTokenService;
 import server.wal.common.dto.ApiResponse;
 import server.wal.common.exception.ResponseResult;
