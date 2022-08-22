@@ -1,7 +1,8 @@
-package server.wal.app.auth.service;
+package server.wal.app.auth.provider;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import server.wal.app.auth.service.AuthService;
 import server.wal.app.auth.service.impl.AppleAuthService;
 import server.wal.app.auth.service.impl.KakaoAuthService;
 import server.wal.domain.user.entity.SocialType;
