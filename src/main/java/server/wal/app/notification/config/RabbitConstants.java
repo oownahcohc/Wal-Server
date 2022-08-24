@@ -1,10 +1,9 @@
-package server.wal.config.rabbit;
+package server.wal.app.notification.config;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-//@PropertySource(value = "classpath:application-rabbit.yml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
 public final class RabbitConstants {
 
     public static final String MORNING_QUEUE = "MORNING_QUEUE";
