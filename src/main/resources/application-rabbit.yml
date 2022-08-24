@@ -1,0 +1,17 @@
+rabbitmq:
+  morning-queue:
+    name: MORNING
+    routing:
+      key: MORNING
+  afternoon-queue:
+    name: AFTERNOON
+    routing:
+      key: AFTERNOON
+  night-queue:
+    name: NIGHT
+    routing:
+      key: NIGHT
+  reservation-queue:
+    name: RESERVATION
+    routing:
+      key: RESERVATION
