@@ -53,16 +53,26 @@ public class UserSettingService {
      */
     public void setTodayWals(Onboarding onboarding, Long userId) {
         for (WalTimeType timeType : onboarding.getTimeTypes()) {
-            List<NextWal> nextWals = nextWalRepository.findByUserId(userId);
-            int random = (int) Math.floor(Math.random() * nextWals.size());
-            NextWal randomNextWal = nextWals.get(random);
-
-            Item nextItem = itemRepository.findItemByCategoryTypeAndNextItemId(randomNextWal.getCategoryType(), randomNextWal.getNextItemId());
+            NextWal randomNextWal = getRandomNextWal(userId);
+            Item nextItem = getNextItem(randomNextWal);
             todayWalRepository.save(TodayWal.newInstance(userId, null, nextItem.getContents(), nextItem.getCategory().getCategoryType(), timeType, WalStatus.DEFAULT));
-            // TODO count 쿼리 or size 비교
-            double nextItemId = (nextItem.getCategoryItemNumber() + 1) % itemRepository.findAllByCategoryType(nextItem.getCategory().getCategoryType()).size();
-            randomNextWal.updateNextItemId(nextItemId);
+            updateNextWalToNextItemId(randomNextWal, nextItem);
         }
+    }
+
+    private void updateNextWalToNextItemId(NextWal randomNextWal, Item nextItem) {
+        double nextItemId = (nextItem.getCategoryItemNumber() + 1) % itemRepository.findAllByCategoryType(nextItem.getCategory().getCategoryType()).size(); // TODO count 쿼리 or size 비교
+        randomNextWal.updateNextItemId(nextItemId);
+    }
+
+    private Item getNextItem(NextWal randomNextWal) {
+        return itemRepository.findItemByCategoryTypeAndNextItemId(randomNextWal.getCategoryType(), randomNextWal.getNextItemId());
+    }
+
+    private NextWal getRandomNextWal(Long userId) {
+        List<NextWal> nextWals = nextWalRepository.findByUserId(userId);
+        int random = (int) Math.floor(Math.random() * nextWals.size());
+        return nextWals.get(random);
     }
 
     /**
