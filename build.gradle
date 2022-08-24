@@ -30,6 +30,10 @@ dependencies {
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
     implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 
+    // firebase
+    implementation 'com.google.firebase:firebase-admin:6.8.1'
+//    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+
     // lombok
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
