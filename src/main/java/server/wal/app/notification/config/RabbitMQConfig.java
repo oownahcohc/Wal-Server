@@ -1,4 +1,4 @@
-package server.wal.config.rabbit;
+package server.wal.app.notification.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -9,7 +9,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static server.wal.config.rabbit.RabbitConstants.*;
+import static server.wal.app.notification.config.RabbitConstants.*;
 
 @Configuration
 @EnableRabbit
@@ -17,22 +17,22 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue morningQueue() {
-        return new Queue(MORNING_QUEUE, false);
+        return new Queue(MORNING_QUEUE, true);
     }
 
     @Bean
     public Queue afternoonQueue() {
-        return new Queue(AFTERNOON_QUEUE, false);
+        return new Queue(AFTERNOON_QUEUE, true);
     }
 
     @Bean
     public Queue nightQueue() {
-        return new Queue(NIGHT_QUEUE, false);
+        return new Queue(NIGHT_QUEUE, true);
     }
 
     @Bean
     public Queue reservationQueue() {
-        return new Queue(RESERVATION_QUEUE, false);
+        return new Queue(RESERVATION_QUEUE, true);
     }
 
     @Bean
