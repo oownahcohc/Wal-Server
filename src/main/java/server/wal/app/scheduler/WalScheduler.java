@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import server.wal.app.user.service.UserSettingService;
 import server.wal.domain.common.enumerate.WalCategoryType;
 import server.wal.domain.common.enumerate.WalTimeType;
@@ -21,6 +22,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class WalScheduler {
 
     private final UserSettingService userSettingService;
