@@ -1,6 +1,7 @@
 package server.wal.common.util;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class TimeUtils {
     private static final LocalTime AFTERNOON = LocalTime.of(14, 0, 0);
     private static final LocalTime NIGHT = LocalTime.of(20, 0, 0);
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     public static LocalDate NOW = LocalDate.now(KOREA_TIME_ZONE);
 
