@@ -1,6 +1,7 @@
 package server.wal.app.reservation.dto.request;
 
 import lombok.*;
+import server.wal.app.notification.activemq.publisher.dto.request.PubReservationDto;
 import server.wal.common.util.TimeUtils;
 import server.wal.domain.common.enumerate.ShowStatus;
 
@@ -21,6 +22,10 @@ public class AddReservationDto {
 
     public static AddReservationDto of(String contents, String localDate, String localTime, ShowStatus showStatus) {
         return new AddReservationDto(contents, LocalDate.parse(localDate), LocalTime.parse(localTime), showStatus);
+    }
+
+    public PubReservationDto toPubReservationDto(Long userId) {
+        return PubReservationDto.of(userId, localDate, localTime);
     }
 
 }
