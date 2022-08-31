@@ -23,7 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserSettingService {
+public class OnboardingService {
 
     private final UserRepository userRepository;
     private final OnboardingRepository onboardingRepository;

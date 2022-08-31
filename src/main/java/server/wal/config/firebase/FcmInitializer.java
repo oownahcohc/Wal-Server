@@ -37,7 +37,7 @@ public class FcmInitializer {
 
         if (FirebaseApp.getApps().isEmpty()) {
             FirebaseApp.initializeApp(options);
-            log.info("FirebaseApp Initialization Complete");
+            log.info("✅ FirebaseApp Initialization Complete 🚀");
         }
     }
 
