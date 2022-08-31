@@ -1,4 +1,4 @@
-package server.wal.app.notification.config;
+package server.wal.app.notification.activemq.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import org.apache.activemq.command.ActiveMQTopic;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -18,13 +18,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static java.time.format.DateTimeFormatter.*;
+import static server.wal.app.notification.activemq.constant.ActiveMQConstants.*;
 
 @Configuration
 public class ActiveMQConfig {
 
     @Bean
-    public ActiveMQTopic morningTopic() {
-        return new ActiveMQTopic()
+    public ActiveMQQueue reservationQueue() {
+        return new ActiveMQQueue(RESERVATION_QUEUE);
     }
 
     @Bean
