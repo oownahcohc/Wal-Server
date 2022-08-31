@@ -2,6 +2,7 @@ package server.wal.domain.todayWal.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import server.wal.domain.common.enumerate.WalTimeType;
 import server.wal.domain.todayWal.entity.TodayWal;
 import server.wal.domain.todayWal.entity.WalStatus;
 
@@ -53,6 +54,26 @@ public class TodayWalRepositoryCustomImpl implements TodayWalRepositoryCustom {
                 .selectFrom(todayWal)
                 .where(todayWal.userId.eq(userId))
                 .fetch();
+    }
+
+    @Override
+    public List<TodayWal> findContentsByUserIds(List<Long> userIds, WalTimeType timeType) {
+        return query
+                .selectFrom(todayWal)
+                .where(
+                        todayWal.userId.in(userIds),
+                        todayWal.timeType.eq(timeType)
+                ).fetch();
+    }
+
+    @Override
+    public TodayWal findReservationContentsByUserId(Long userId) {
+        return query
+                .selectFrom(todayWal)
+                .where(
+                        todayWal.userId.eq(userId),
+                        todayWal.timeType.eq(WalTimeType.RESERVATION)
+                ).fetchOne();
     }
 
 }
