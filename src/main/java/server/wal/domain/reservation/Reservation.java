@@ -58,4 +58,8 @@ public class Reservation extends AuditingTimeEntity {
                 .build();
     }
 
+    public void updateSendStatus() {
+        this.sendStatus = SendStatus.DONE;
+    }
+
 }
