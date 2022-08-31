@@ -3,6 +3,8 @@ package server.wal.app.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import server.wal.app.user.dto.request.UpdateOnboardCategoryInfoRequest;
+import server.wal.app.user.dto.request.UpdateOnboardTimeInfoRequest;
 import server.wal.app.user.dto.request.SetOnboardInfoDto;
 import server.wal.app.user.dto.response.OnboardInfoResponse;
 import server.wal.domain.common.enumerate.WalCategoryType;
@@ -86,6 +88,18 @@ public class OnboardingService {
             Item item = itemRepository.findFirstItemByCategoryType(categoryType);
             nextWalRepository.save(NextWal.newInstance(userId, categoryType, item.getCategoryItemNumber()));
         }
+    }
+
+    @Transactional
+    public void updateOnboardTimeInfo(UpdateOnboardTimeInfoRequest request, Long userId) {
+        Onboarding onboard = OnboardingServiceUtils.findOnboardingByUserId(onboardingRepository, userId);
+        onboard.updateTimes(request.getTimeTypes());
+    }
+
+    @Transactional
+    public void updateOnboardCategoryInfo(UpdateOnboardCategoryInfoRequest request, Long userId) {
+        Onboarding onboard = OnboardingServiceUtils.findOnboardingByUserId(onboardingRepository, userId);
+        onboard.updateCategories(request.getCategoryTypes());
     }
 
 }
