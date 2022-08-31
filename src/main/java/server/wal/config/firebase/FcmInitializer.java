@@ -22,15 +22,15 @@ public class FcmInitializer {
     @Value("${firebase.fcm.config.path}")
     private String firebaseConfigPath;
 
-    @Value("${firebase.fcm.scope}")
-    private static String serviceScope;
+//    @Value("${firebase.fcm.scope}")
+//    private static String serviceScope;
 
     @PostConstruct
     public void initFirebaseApp() throws IOException {
         ClassPathResource resource = new ClassPathResource(firebaseConfigPath);
         GoogleCredentials googleCredentials = GoogleCredentials
-                .fromStream(resource.getInputStream())
-                .createScoped(List.of(serviceScope));
+                .fromStream(resource.getInputStream());
+//                .createScoped(List.of(serviceScope));
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(googleCredentials)
                 .build();
