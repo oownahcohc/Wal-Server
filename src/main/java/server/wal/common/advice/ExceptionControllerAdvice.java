@@ -123,7 +123,7 @@ public class ExceptionControllerAdvice {
     }
 
     /**
-     * <b>MayFill Custom Exception</b>
+     * <b>Wal Custom Exception</b>
      */
     @ExceptionHandler(WalException.class)
     protected ResponseEntity<ApiResponse<Object>> handleBaseException(WalException exception) {
@@ -134,7 +134,7 @@ public class ExceptionControllerAdvice {
     }
 
     /**
-     * <b>500 Internal Server</b>
+     * <b>500 Internal Server</b>q
      */
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
