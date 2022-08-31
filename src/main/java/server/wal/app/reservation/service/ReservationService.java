@@ -3,6 +3,7 @@ package server.wal.app.reservation.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import server.wal.app.notification.activemq.publisher.WalPublisher;
 import server.wal.app.reservation.dto.request.AddReservationDto;
 import server.wal.app.reservation.dto.response.ReservationIdResponse;
 import server.wal.common.util.TimeUtils;
@@ -20,6 +21,7 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final TodayWalRepository todayWalRepository;
+    private final WalPublisher walPublisher;
 
     @Transactional
     public ReservationIdResponse registerReservation(AddReservationDto requestDto, Long userId) {
@@ -35,7 +37,7 @@ public class ReservationService {
                     WalStatus.RESERVATION
             ));
         }
-        // TODO 메세지 큐 작업
+        walPublisher.publishReservation(requestDto.toPubReservationDto(userId));
         return ReservationIdResponse.from(reservation.getId());
     }
 
