@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import server.wal.app.user.service.UserSettingService;
+import server.wal.app.user.service.OnboardingService;
 import server.wal.domain.common.enumerate.WalCategoryType;
 import server.wal.domain.common.enumerate.WalTimeType;
 import server.wal.domain.onboarding.entity.Onboarding;
@@ -25,7 +25,7 @@ import java.util.List;
 @Transactional
 public class WalScheduler {
 
-    private final UserSettingService userSettingService;
+    private final OnboardingService onboardingService;
 
     private final OnboardingRepository onboardingRepository;
     private final ReservationRepository reservationRepository;
@@ -42,7 +42,7 @@ public class WalScheduler {
         for (Onboarding onboard : onboards) {
 
             Long userId = onboard.getUserId();
-            userSettingService.setTodayWals(onboard, userId);
+            onboardingService.setTodayWals(onboard, userId);
 
             Reservation todayReservation = reservationRepository.findTodayReservationByUserId(userId);
             if (todayReservation != null) {

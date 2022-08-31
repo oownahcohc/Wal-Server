@@ -1,4 +1,4 @@
-package server.wal.app.user;
+package server.wal.app.user.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +24,6 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final OnboardingService onboardingService;
-
-    @ApiOperation("[인증] 온보딩 페이지 - 유저의 온보딩 정보 설정")
-    @Auth
-    @PostMapping("/v1/user/onboarding")
-    public ApiResponse<OnboardInfoResponse> setOnboardInfo(@Valid @RequestBody SetOnboardInfoRequest request, @ApiIgnore @LoginUserId Long userId) {
-        return ApiResponse.success(ResponseResult.SUCCESS_CREATED_ONBOARD, onboardingService.setOnboardInfo(request.toServiceDto(), userId));
-    }
 
     @ApiOperation("[인증] 마이페이지 - 유저 닉네임 변경")
     @Auth
