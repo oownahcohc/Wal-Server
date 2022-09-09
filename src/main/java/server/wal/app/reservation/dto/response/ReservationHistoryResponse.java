@@ -14,7 +14,7 @@ public class ReservationHistoryResponse {
     private List<ReservationResponseDto> completeData;
 
     @Builder(access = AccessLevel.PACKAGE)
-    public ReservationHistoryResponse(List<ReservationResponseDto> incompleteData, List<ReservationResponseDto> completeData) {
+    private ReservationHistoryResponse(final List<ReservationResponseDto> incompleteData, final List<ReservationResponseDto> completeData) {
         this.incompleteData = incompleteData;
         this.completeData = completeData;
     }

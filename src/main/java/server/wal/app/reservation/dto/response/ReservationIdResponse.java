@@ -11,7 +11,7 @@ public class ReservationIdResponse {
 
     private ReservationIdResponse() {}
 
-    private ReservationIdResponse(Long reservationId) {
+    private ReservationIdResponse(final Long reservationId) {
         this.reservationId = reservationId;
     }
 
