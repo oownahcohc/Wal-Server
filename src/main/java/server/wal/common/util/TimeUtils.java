@@ -13,7 +13,8 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeUtils {
 
-    private static final ZoneId KOREA_TIME_ZONE = ZoneId.of("Asia/Seoul");
+    public static final ZoneId KOREA_TIME_ZONE = ZoneId.of("Asia/Seoul");
+
     private static final LocalTime MORNING = LocalTime.of(8, 0, 0);
     private static final LocalTime AFTERNOON = LocalTime.of(14, 0, 0);
     private static final LocalTime NIGHT = LocalTime.of(20, 0, 0);
