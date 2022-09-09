@@ -19,6 +19,7 @@ public class NextWal {
     @Column(nullable = false)
     private Long userId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private WalCategoryType categoryType;
 
