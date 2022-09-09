@@ -49,7 +49,7 @@ public class FCMService {
         sendMessage(message, true, reservationId);
     }
 
-    private void sendMessage(Message message, boolean isReserve, @Nullable Long reservationId){
+    private void sendMessage(Message message, boolean isReserve, @Nullable Long reservationId) {
         FirebaseMessaging.getInstance().sendAsync(message);
         if (isReserve) {
             reservationRepository.findByReservationId(reservationId).updateSendStatus();
