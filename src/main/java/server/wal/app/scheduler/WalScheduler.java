@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import server.wal.app.user.service.OnboardingService;
+import server.wal.app.user.service.WalSettingService;
 import server.wal.domain.common.enumerate.WalCategoryType;
 import server.wal.domain.common.enumerate.WalTimeType;
 import server.wal.domain.onboarding.entity.Onboarding;
@@ -25,37 +26,11 @@ import java.util.List;
 @Transactional
 public class WalScheduler {
 
-    private final OnboardingService onboardingService;
-
-    private final OnboardingRepository onboardingRepository;
-    private final ReservationRepository reservationRepository;
-    private final TodayWalRepository todayWalRepository;
+    private final WalSettingService walSettingService;
 
     @Scheduled(cron = "0 0 0 * * *")
     public void updateWalAtNoonEveryday() {
-        todayWalRepository.deleteAll();
-        updateAllUserNextWalAndTodayWal();
-    }
-
-    private void updateAllUserNextWalAndTodayWal() {
-        List<Onboarding> onboards = onboardingRepository.findAll(Sort.by(Sort.Direction.ASC, "userId"));
-        for (Onboarding onboard : onboards) {
-
-            Long userId = onboard.getUserId();
-            onboardingService.setTodayWals(onboard, userId);
-
-            Reservation todayReservation = reservationRepository.findTodayReservationByUserId(userId);
-            if (todayReservation != null) {
-                todayWalRepository.save(TodayWal.newInstance(
-                        userId, todayReservation.getId(),
-                        todayReservation.getContents(),
-                        WalCategoryType.RESERVATION,
-                        WalTimeType.RESERVATION,
-                        WalStatus.RESERVATION
-                ));
-            }
-
-        }
+        walSettingService.updateAllUserNextWalAndTodayWal();
     }
 
 }
