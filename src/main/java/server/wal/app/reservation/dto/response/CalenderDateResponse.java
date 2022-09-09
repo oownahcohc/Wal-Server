@@ -15,11 +15,11 @@ public class CalenderDateResponse {
 
     private CalenderDateResponse() {}
 
-    private CalenderDateResponse(LocalDateTime reservedDate) {
+    private CalenderDateResponse(final LocalDateTime reservedDate) {
         this.reservedDate = reservedDate;
     }
 
-    public static CalenderDateResponse of(LocalDateTime reservedDate) {
+    public static CalenderDateResponse from(LocalDateTime reservedDate) {
         return new CalenderDateResponse(reservedDate);
     }
 
