@@ -7,7 +7,6 @@ import server.wal.domain.reservation.Reservation;
 import server.wal.domain.reservation.SendStatus;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static server.wal.domain.reservation.QReservation.*;
@@ -24,7 +23,10 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
                 .from(reservation)
                 .where(
                         reservation.userId.eq(userId),
-                        reservation.sendDueDate.eq(LocalDateTime.from(requestDate))
+                        reservation.sendDueDate.between(
+                                requestDate.atStartOfDay(),
+                                requestDate.atStartOfDay().plusDays(1L)
+                        )
                 ).fetchFirst() != null;
     }
 
@@ -54,7 +56,7 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
                         reservation.userId.eq(userId),
                         reservation.sendDueDate.between(
                                 TimeUtils.NOW.atStartOfDay(),
-                                TimeUtils.NOW.atStartOfDay().plusDays(1)
+                                TimeUtils.NOW.atStartOfDay().plusDays(1L)
                         )
                 ).fetchOne();
     }
