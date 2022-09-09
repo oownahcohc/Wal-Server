@@ -33,7 +33,7 @@ public class ReservationService {
                     WalCategoryType.RESERVATION, WalTimeType.RESERVATION, WalStatus.RESERVATION
             ));
         }
-//        walPublisher.publishReservation(requestDto.toPubReservationDto(userId));
+        walPublisher.publishReservation(requestDto.toPubReservationDto(userId));
         return ReservationIdResponse.from(reservation.getId());
     }
 
