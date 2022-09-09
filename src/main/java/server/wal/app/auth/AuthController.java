@@ -13,10 +13,11 @@ import server.wal.app.auth.service.AuthService;
 import server.wal.app.auth.provider.AuthServiceProvider;
 import server.wal.app.auth.service.CreateTokenService;
 import server.wal.common.dto.ApiResponse;
-import server.wal.common.exception.ResponseResult;
 import server.wal.domain.user.entity.User;
 
 import javax.validation.Valid;
+
+import static server.wal.common.exception.ResponseResult.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class AuthController {
     @ApiOperation("토큰 만료 시 엑세스 토큰 재발급 요청")
     @PostMapping("/v1/auth/reissue")
     public ApiResponse<TokenResponse> reissueToken(@Valid @RequestBody TokenRequest request) {
-        return ApiResponse.success(ResponseResult.SUCCESS_CREATED_REISSUE_TOKEN, createTokenService.reissueToken(request));
+        return ApiResponse.success(SUCCESS_CREATED_REISSUE_TOKEN, createTokenService.reissueToken(request));
     }
 
 }

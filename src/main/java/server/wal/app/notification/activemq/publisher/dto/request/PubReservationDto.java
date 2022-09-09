@@ -14,16 +14,18 @@ import java.time.ZoneId;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PubReservationDto {
 
+    private static final ZoneId KOREA = TimeUtils.KOREA_TIME_ZONE;
+
     private Long userId;
     private long delay;
 
     public static PubReservationDto of(Long userId, LocalDate date, LocalTime time) {
         long milliOfSendDueDate = LocalDateTime.of(date, time)
-                .atZone(ZoneId.of("Asia/Seoul"))
+                .atZone(KOREA)
                 .toInstant()
                 .toEpochMilli();
         long milliOfNow = TimeUtils.getNow()
-                .atZone(ZoneId.of("Asia/Seoul"))
+                .atZone(KOREA)
                 .toInstant()
                 .toEpochMilli();
         long delay = milliOfSendDueDate - milliOfNow;

@@ -24,7 +24,7 @@ public class UserService {
     public NicknameResponse changeNickname(String newNickname, Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
         user.changeNickname(newNickname);
-        return NicknameResponse.of(user.getNickname());
+        return NicknameResponse.from(user.getNickname());
     }
 
     @Transactional

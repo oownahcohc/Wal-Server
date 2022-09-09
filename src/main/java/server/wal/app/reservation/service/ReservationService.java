@@ -29,15 +29,11 @@ public class ReservationService {
         Reservation reservation = reservationRepository.save(Reservation.newInstance(userId, requestDto));
 
         if (requestDto.getLocalDate().isEqual(TimeUtils.NOW)) {
-            todayWalRepository.save(TodayWal.newInstance(
-                    userId, reservation.getId(),
-                    requestDto.getContents(),
-                    WalCategoryType.RESERVATION,
-                    WalTimeType.RESERVATION,
-                    WalStatus.RESERVATION
+            todayWalRepository.save(TodayWal.newInstance(userId, reservation.getId(), requestDto.getContents(),
+                    WalCategoryType.RESERVATION, WalTimeType.RESERVATION, WalStatus.RESERVATION
             ));
         }
-        walPublisher.publishReservation(requestDto.toPubReservationDto(userId));
+//        walPublisher.publishReservation(requestDto.toPubReservationDto(userId));
         return ReservationIdResponse.from(reservation.getId());
     }
 

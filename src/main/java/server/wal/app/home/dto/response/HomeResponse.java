@@ -34,7 +34,7 @@ public class HomeResponse {
         this.openStatus = openStatus;
     }
 
-    public static HomeResponse of(TodayWal todayWal) {
+    public static HomeResponse from(TodayWal todayWal) {
         OpenStatus openStatus = setOpenStatus(todayWal.getTimeType());
         return HomeResponse.builder()
                 .todayWalId(todayWal.getId())
@@ -50,7 +50,7 @@ public class HomeResponse {
 
     private static OpenStatus setOpenStatus(WalTimeType walTimeType) {
         return walTimeType.getSendDueDate()
-                .isAfter(TimeUtils.getNow())
+                .isBefore(TimeUtils.getNow())
                 ? OpenStatus.ABLE
                 : OpenStatus.UNABLE;
     }

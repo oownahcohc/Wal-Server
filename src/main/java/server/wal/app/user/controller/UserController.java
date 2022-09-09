@@ -6,18 +6,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.wal.app.user.dto.request.ChangeNicknameRequest;
-import server.wal.app.user.dto.request.SetOnboardInfoRequest;
 import server.wal.app.user.dto.response.NicknameResponse;
-import server.wal.app.user.dto.response.OnboardInfoResponse;
 import server.wal.app.user.service.UserService;
-import server.wal.app.user.service.OnboardingService;
 import server.wal.common.dto.ApiResponse;
-import server.wal.common.exception.ResponseResult;
 import server.wal.config.interceptor.Auth;
 import server.wal.config.resolver.LoginUserId;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+
+import static server.wal.common.exception.ResponseResult.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +27,7 @@ public class UserController {
     @Auth
     @PostMapping("/v1/user/me/nickname")
     public ApiResponse<NicknameResponse> changeNickname(@Valid @RequestBody ChangeNicknameRequest request, @ApiIgnore @LoginUserId Long userId) {
-        return ApiResponse.success(ResponseResult.SUCCESS_CREATED_UPDATE_NICKNAME, userService.changeNickname(request.getNickname(), userId));
+        return ApiResponse.success(SUCCESS_CREATED_UPDATE_NICKNAME, userService.changeNickname(request.getNickname(), userId));
     }
 
 }

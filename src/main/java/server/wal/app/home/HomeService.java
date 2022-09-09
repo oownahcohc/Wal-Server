@@ -19,7 +19,7 @@ public class HomeService {
     @Transactional(readOnly = true)
     public List<HomeResponse> getMainHome(Long userId) {
         return todayWalRepository.findByUserId(userId).stream()
-                .map(HomeResponse::of)
+                .map(HomeResponse::from)
                 .collect(Collectors.toList());
     }
 

@@ -1,5 +1,6 @@
 package server.wal.app.notification.firebase;
 
+import com.google.api.core.ApiFuture;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import server.wal.app.reservation.service.ReservationService;
 import server.wal.app.user.service.UserServiceUtils;
 import server.wal.domain.reservation.repository.ReservationRepository;
 import server.wal.domain.todayWal.entity.TodayWal;
@@ -33,7 +33,7 @@ public class FCMService {
                 .putData(CONTENT_KEY, contents)
                 .setToken(targetUserToken)
                 .build();
-        sendMessage(message, false, null);
+        sendMessage(message, SendType.DEFAULT, null);
     }
 
     public void sendReservationWal(Long userId) {
@@ -46,13 +46,18 @@ public class FCMService {
                 .putData(CONTENT_KEY, reservationContents)
                 .setToken(targetUserToken)
                 .build();
-        sendMessage(message, true, reservationId);
+        sendMessage(message, SendType.RESERVATION, reservationId);
     }
 
-    private void sendMessage(Message message, boolean isReserve, @Nullable Long reservationId) {
-        FirebaseMessaging.getInstance().sendAsync(message);
-        if (isReserve) {
-            reservationRepository.findByReservationId(reservationId).updateSendStatus();
+    private void sendMessage(Message message, SendType sendType, @Nullable Long reservationId) {
+        ApiFuture<String> sendMessage = FirebaseMessaging.getInstance().sendAsync(message);
+        if (sendMessage.isDone()) {
+            log.info("🐶 왈소리 전송 완료 ✅");
+            if (sendType == SendType.RESERVATION) {
+                reservationRepository.findByReservationId(reservationId).updateSendStatus();
+            }
+        } else if (sendMessage.isCancelled()) {
+            log.info("❌ 왈소리 전송 실패 ❌");
         }
     }
 

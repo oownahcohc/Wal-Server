@@ -14,6 +14,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 
+import static server.wal.common.exception.ResponseResult.*;
+
 @RestController
 @RequiredArgsConstructor
 public class ReservationController {
@@ -24,7 +26,7 @@ public class ReservationController {
     @Auth
     @PostMapping("/v1/reservation")
     public ApiResponse<ReservationIdResponse> registerReservation(@Valid @RequestBody AddReservationRequest request, @ApiIgnore @LoginUserId Long userId) {
-        return ApiResponse.success(ResponseResult.SUCCESS_CREATED_RESERVATION, reservationService.registerReservation(request.toServiceDto(), userId));
+        return ApiResponse.success(SUCCESS_CREATED_RESERVATION, reservationService.registerReservation(request.toServiceDto(), userId));
     }
 
     @ApiOperation("[인증] 왈소리 히스토리 페이지 - 예약한 왈소리 삭제/취소 하기")
@@ -32,7 +34,7 @@ public class ReservationController {
     @DeleteMapping("/v1/reservation/{reservationId}")
     public ApiResponse<ResponseResult> registerReservation(@PathVariable Long reservationId, @ApiIgnore @LoginUserId Long userId) {
         reservationService.deleteReservation(reservationId, userId);
-        return ApiResponse.success(ResponseResult.SUCCESS_DELETE_RESERVATION);
+        return ApiResponse.success(SUCCESS_DELETE_RESERVATION);
     }
 
 }

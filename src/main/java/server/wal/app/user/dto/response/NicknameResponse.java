@@ -15,7 +15,7 @@ public class NicknameResponse {
         this.nickname = nickname;
     }
 
-    public static NicknameResponse of(String nickname) {
+    public static NicknameResponse from(String nickname) {
         return new NicknameResponse(nickname);
     }
 

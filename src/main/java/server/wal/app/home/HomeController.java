@@ -15,6 +15,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
+import static server.wal.common.exception.ResponseResult.*;
+
 @RestController
 @RequiredArgsConstructor
 public class HomeController {
@@ -25,7 +27,7 @@ public class HomeController {
     @Auth
     @GetMapping("/v1/home")
     public ApiResponse<List<HomeResponse>> getMainHome(@ApiIgnore @LoginUserId Long userId) {
-        return ApiResponse.success(ResponseResult.SUCCESS_RETRIEVE_HOME, homeService.getMainHome(userId));
+        return ApiResponse.success(SUCCESS_RETRIEVE_HOME, homeService.getMainHome(userId));
     }
 
     @ApiOperation("[인증] 홈 페이지 - 유저가 오늘의 왈소리 확인 후 show status 변경")
@@ -33,7 +35,7 @@ public class HomeController {
     @PatchMapping("/v1/home/{todayWalId}")
     public ApiResponse<ResponseResult> updateShowStatus(@PathVariable Long todayWalId, @ApiIgnore @LoginUserId Long userId) {
         homeService.updateShowStatus(todayWalId, userId);
-        return ApiResponse.success(ResponseResult.SUCCESS_CREATED_UPDATE_HOME_SHOW_STATUS);
+        return ApiResponse.success(SUCCESS_CREATED_UPDATE_HOME_SHOW_STATUS);
     }
 
 }
