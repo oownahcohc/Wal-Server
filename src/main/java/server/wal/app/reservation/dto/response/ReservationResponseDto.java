@@ -29,7 +29,7 @@ public class ReservationResponseDto extends AuditingTimeResponse {
         this.showStatus = showStatus;
     }
 
-    public static ReservationResponseDto of(Reservation reservation) {
+    public static ReservationResponseDto from(Reservation reservation) {
         String detailMessage = getDetailMessage(
                 getDetailDateInfo(reservation.getSendDueDate()),
                 reservation.getSendStatus()
