@@ -2,11 +2,13 @@ package server.wal.domain.todayWal.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import server.wal.domain.common.enumerate.WalCategoryType;
 import server.wal.domain.common.enumerate.WalTimeType;
 import server.wal.domain.todayWal.entity.TodayWal;
 import server.wal.domain.todayWal.entity.WalStatus;
 
 import java.util.List;
+import java.util.Set;
 
 import static server.wal.domain.todayWal.entity.QTodayWal.*;
 
@@ -39,6 +41,16 @@ public class TodayWalRepositoryCustomImpl implements TodayWalRepositoryCustom {
     }
 
     @Override
+    public TodayWal findReservationContentsByUserId(Long userId) {
+        return query
+                .selectFrom(todayWal)
+                .where(
+                        todayWal.userId.eq(userId),
+                        todayWal.timeType.eq(WalTimeType.RESERVATION)
+                ).fetchOne();
+    }
+
+    @Override
     public TodayWal findByTodayWalIdAndUserId(Long todayWalId, Long userId) {
         return query
                 .selectFrom(todayWal)
@@ -57,7 +69,7 @@ public class TodayWalRepositoryCustomImpl implements TodayWalRepositoryCustom {
     }
 
     @Override
-    public List<TodayWal> findContentsByUserIds(List<Long> userIds, WalTimeType timeType) {
+    public List<TodayWal> findByUserIds(List<Long> userIds, WalTimeType timeType) {
         return query
                 .selectFrom(todayWal)
                 .where(
@@ -67,13 +79,23 @@ public class TodayWalRepositoryCustomImpl implements TodayWalRepositoryCustom {
     }
 
     @Override
-    public TodayWal findReservationContentsByUserId(Long userId) {
+    public List<TodayWal> findByTimeTypesAndUserId(Set<WalTimeType> timeTypes, Long userId) {
         return query
                 .selectFrom(todayWal)
                 .where(
-                        todayWal.userId.eq(userId),
-                        todayWal.timeType.eq(WalTimeType.RESERVATION)
-                ).fetchOne();
+                        todayWal.timeType.in(timeTypes),
+                        todayWal.userId.eq(userId)
+                ).fetch();
+    }
+
+    @Override
+    public List<TodayWal> findByCategoryTypesAndUserId(Set<WalCategoryType> categoryTypes, Long userId) {
+        return query
+                .selectFrom(todayWal)
+                .where(
+                        todayWal.categoryType.in(categoryTypes),
+                        todayWal.userId.eq(userId)
+                ).fetch();
     }
 
 }
