@@ -22,29 +22,23 @@ public class ReservationRetrieveService {
     @Transactional(readOnly = true)
     public ReservationHistoryResponse getReservationHistory(Long userId) {
         List<Reservation> reservations = reservationRepository.findByUserId(userId);
-        List<ReservationResponseDto> notDoneReservationResponse = extractNotDoneReservation(reservations);
-        List<ReservationResponseDto> doneReservationResponse = extractDoneReservation(reservations);
+        List<ReservationResponseDto> notDoneReservationResponse = extractReservationBySendStatus(reservations, SendStatus.NOT_DONE);
+        List<ReservationResponseDto> doneReservationResponse = extractReservationBySendStatus(reservations, SendStatus.DONE);
         return ReservationHistoryResponse.of(notDoneReservationResponse, doneReservationResponse);
     }
 
-    private List<ReservationResponseDto> extractDoneReservation(List<Reservation> reservations) {
+    private List<ReservationResponseDto> extractReservationBySendStatus(List<Reservation> reservations, SendStatus sendStatus) {
         return reservations.stream()
-                .filter(reservation -> reservation.getSendStatus().equals(SendStatus.DONE))
-                .map(ReservationResponseDto::of)
-                .collect(Collectors.toList());
-    }
-
-    private List<ReservationResponseDto> extractNotDoneReservation(List<Reservation> reservations) {
-        return reservations.stream()
-                .filter(reservation -> reservation.getSendStatus().equals(SendStatus.NOT_DONE))
-                .map(ReservationResponseDto::of)
+                .filter(reservation -> reservation.getSendStatus().equals(sendStatus))
+                .map(ReservationResponseDto::from)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<CalenderDateResponse> getReservationDate(Long userId) {
         return ReservationServiceUtils.findReservationAfterNow(reservationRepository, userId).stream()
-                .map(reservation -> CalenderDateResponse.of(reservation.getSendDueDate()))
+                .map(reservation -> CalenderDateResponse.from(reservation.getSendDueDate()))
                 .collect(Collectors.toList());
     }
+
 }
